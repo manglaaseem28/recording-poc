@@ -9,9 +9,7 @@ const getSignedUrl = async (req, res) => {
         if (!req.query.fileName) {
             return res.status(404).json({ message: 'fileName not defined' })
         }
-        var params = { Bucket: storageBucket, Key: req.query.fileName, Expires: 600 };
-        console.log(params)
-        const url = await s3.getSignedUrl('getObject', params)
+        const url = await s3Service.getRecordingUrl(req.query.fileName)
         res.status(200).json({ message: 'Success', data: url })
 
     }
